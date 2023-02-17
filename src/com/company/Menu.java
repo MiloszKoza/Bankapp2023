@@ -42,6 +42,9 @@ public class Menu {
         Transaction transaction = new Transaction();
         transaction.connect();
 
+        BankHistory bh = new BankHistory();
+        bh.connect();
+
 
                 AccessingPortal as = new AccessingPortal ();
                 as.connect();
@@ -49,6 +52,10 @@ public class Menu {
         switch (choice) {
             case 1 -> {
                 System.out.println("Historia rachunku");
+
+                int accountNr = as.getCustomerDetails(customeNumber).getAccount_no();
+
+                bh.showBankHistory(accountNr);
 
                 System.out.println();
                 System.out.println("Jesli chcesz wrocic do menu - wcisnij x");
@@ -92,8 +99,7 @@ public class Menu {
                     break;
                 } }
             case 4 -> {
-                System.out.println(" Informacje o prowadzonym rachunku");
-
+                System.out.println("Informacje o prowadzonym rachunku");
 
 
 
