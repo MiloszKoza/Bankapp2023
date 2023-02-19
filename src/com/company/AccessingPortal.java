@@ -28,6 +28,8 @@ public class AccessingPortal {
 
     }
 
+    boolean setEmail = false;
+
 
     public   boolean checkAccount (int inputCustomerNumber) {
 
@@ -52,23 +54,40 @@ public class AccessingPortal {
         }
 
         for (int i = 0; i < myList.size(); i++) {
-            if (inputCustomerNumber == myList.get(i)) {
-                //  System.out.println("Account Found :" + inputAccount);
+
+            if (inputCustomerNumber == myList.get(i) && setEmail == true) {
+                 System.out.println("Numer klienta: " + inputCustomerNumber + " jest prawidlowy");
+
                 corectCustomerNumber = true;
                 break;
-
-            } else if (myList.get(i) != inputCustomerNumber && i == myList.size() - 1) {
+            }  else if (inputCustomerNumber == myList.get(i)) {
+                    //  System.out.println("Account Found :" + inputAccount);
+                    corectCustomerNumber = true;
+                    break;
+            } else if (myList.get(i) != inputCustomerNumber && i == myList.size() - 1 &&  setEmail == true) {
+                System.out.println("Numer klienta: " + inputCustomerNumber + " nie jest prawidlowy - Sprobuj ponownie");
                 corectCustomerNumber = false;
 
-            }
+                System.out.println("Podaj numer klienta ponownie");
+                Scanner scanner = new Scanner(System.in);
+                int cNumber = scanner.nextInt();
+                setEmail  = true;
+                checkAccount(cNumber);
 
+
+                } else if (myList.get(i) != inputCustomerNumber && i == myList.size() - 1) {
+                    corectCustomerNumber = false;
+
+                }
+
+            }
+            return corectCustomerNumber;
         }
-        return corectCustomerNumber;
-    }
+
 
     public   Customer getCustomerDetails (int customerNumber ){
 
-        String query = " SELECT *  FROM mbankcustomers WHERE customerNumber =" +customerNumber ;
+        String query = " SELECT *  FROM mbankcustomers WHERE customerNumber = " +customerNumber ;
 
 
         Customer customer1 = new Customer(customerNumber, 0, "", "", "", "",0, 0d);
@@ -99,9 +118,169 @@ return customer1;
 
     }
 
+    public String  setEmail() {
+
+        String query = "SELECT email FROM mbankcustomers";
+
+        boolean runMethod = true;
+        String inputEmail = "";
+
+        ArrayList<String> listEmails = new ArrayList<>();
 
 
-    public   void launchingPortal ( ) {
+        try {
+            Statement st = con.createStatement();
+
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                listEmails.add(rs.getString(1));
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        while (runMethod) {
+
+
+            System.out.println("Podaj swoj adres email");
+            Scanner scanner2 = new Scanner(System.in);
+             inputEmail = scanner2.nextLine();
+
+
+            for (int i = 0; i < listEmails.size(); i++) {
+                if (!inputEmail.contains("@")  && !inputEmail.contains(".")) {
+                    System.out.println("Nie prawidlowy format adresu email");
+                    break;
+            } else if (inputEmail.equals(listEmails.get(i))) {
+                    System.out.println("Adres email jest juz wykorzystany - podaj inny adres email");
+                    break;
+                } else if (!inputEmail.equals(listEmails.get(i)) && i == listEmails.size() - 1) {
+                    runMethod = false;
+                    break;
+
+                }
+            }
+
+
+        }
+        return inputEmail;
+    }
+
+    public int  setPhoneNumber() {
+        boolean run = true;
+        int inputPhoneNumber =0;
+        while(run) {
+        System.out.println("Podaj numer telefonu ");
+        Scanner scanner = new Scanner(System.in);
+         inputPhoneNumber = scanner.nextInt();
+
+        if ( inputPhoneNumber < 9 ) {
+            System.out.println("Nieprawidlowy numer telefonu - numer jest za krotki");
+        } else {
+            run  = false;
+        }
+        }
+        return inputPhoneNumber;
+    }
+
+    public String  setNewpassword () {
+
+        boolean run = true;
+        String inputNewPassword ="";
+        while (run) {
+            System.out.println("Wprowadz nowe haslo do logowania");
+
+            Scanner scanner = new Scanner(System.in);
+             inputNewPassword = scanner.nextLine();
+
+            boolean have12characters = false;
+            boolean hasSpecialcharacter = false;
+            boolean hasDigit = false;
+            boolean hasUppercaseCharacter = false;
+
+
+            if (inputNewPassword.length() >= 12) {
+                have12characters = true;
+            }
+
+            for (int i = 0; i < inputNewPassword.length(); i++) {
+
+                if (!Character.isDigit(inputNewPassword.charAt(i)) && !Character.isLetter(inputNewPassword.charAt(i)) && !Character.isWhitespace(inputNewPassword.charAt(i)) ) {
+
+                    hasSpecialcharacter = true;
+
+
+                }
+            }
+
+            for (int i = 0; i < inputNewPassword.length(); i++) {
+                if (Character.isDigit(inputNewPassword.charAt(i))) {
+                    hasDigit = true;
+
+                }
+            }
+            for (int i = 0; i < inputNewPassword.length(); i++) {
+                if (Character.isUpperCase(inputNewPassword.charAt(i))) {
+
+                    hasUppercaseCharacter = true;
+
+
+                }
+            }
+
+            if (have12characters && hasSpecialcharacter && hasDigit && hasUppercaseCharacter) {
+                System.out.println("Haslo poprawne");
+
+
+            } else {
+                System.out.println("Haslo nie spelnia wymagan - sprobuj podac inne haslo");
+                setNewpassword();
+            }
+
+
+            System.out.println("Powtorz nowe haslo");
+            Scanner scanner1 = new Scanner(System.in);
+            String inputConfirmedPassword = scanner1.nextLine();
+
+            if( inputConfirmedPassword.equals(inputNewPassword)){
+                System.out.println("Nowe haslo zostalo poprawnie ustawione");
+                run = false;
+                break;
+            } else {
+                System.out.println("Hasla nie sa takie same - sprobuj ponownie");
+
+            }
+        }
+  return inputNewPassword;
+
+    }
+
+    public void insertingDataRegistration (String password, String email, int phoneNumber, int customerNumber ) {
+
+        String query = "UPDATE  mbankcustomers SET password1 =? , email =? , phoneNumber=?  WHERE customerNumber= " + customerNumber;
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+             preparedStatement.setString(1,password);
+             preparedStatement.setString(2,email);
+             preparedStatement.setInt(3,phoneNumber);
+
+             preparedStatement.executeUpdate();
+
+            System.out.println("Rejestracja przebiegla pomyslnie");
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
+
+    public void launchingPortal ( ) {
         System.out.println("Witaj w portalu bankowosci elektronicznej");
         System.out.println("W celu rejestracji wybierz 1, w przypadku logowania do serwisu 2");
 
@@ -110,7 +289,28 @@ return customer1;
         int choice = scanner.nextInt();
 
         switch (choice) {
-            case 1 ->  System.out.println("Rejestracja do portalu");
+            case 1 -> {
+                System.out.println("Rejestracja do portalu");
+
+                boolean runRegistration = true;
+                while (runRegistration) {
+
+                    System.out.println("W celu rejestracji podaj swoj numer klienta");
+
+                    Scanner scanner1 = new Scanner(System.in);
+                    int inputCustomerNumber = scanner1.nextInt();
+                    setEmail = true;
+                    checkAccount(inputCustomerNumber);
+
+                 int enteredPhonenumber =  setPhoneNumber();
+                  String  enteredEmail = setEmail();
+                   String enteredPassword = setNewpassword();
+
+                    insertingDataRegistration(enteredPassword,enteredEmail,enteredPhonenumber, inputCustomerNumber );
+                    runRegistration = false;
+
+                }
+            }
             case 2 -> {
                 for (int i =0; i < 3; i ++) {
 
