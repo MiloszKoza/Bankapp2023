@@ -25,8 +25,13 @@ public class Menu {
     public void accessingMenu (int customeNumber) {
 
             boolean shouldContinue = true;
+        AccessingPortal as = new AccessingPortal ();
+        as.connect();
 
-        System.out.println("Witaj na koncie klienta banku Mbank");
+       String  nameOfHoldr =  as.getCustomerDetails(customeNumber).getFirstName();
+        System.out.println("Witaj " + nameOfHoldr +   " na koncie klienta banku Mbank");
+
+
 
             while(shouldContinue) {
                 System.out.println();
@@ -46,8 +51,8 @@ public class Menu {
         bh.connect();
 
 
-                AccessingPortal as = new AccessingPortal ();
-                as.connect();
+
+
 
         switch (choice) {
             case 1 -> {

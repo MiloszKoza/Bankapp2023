@@ -172,19 +172,21 @@ return customer1;
 
     public int  setPhoneNumber() {
         boolean run = true;
-        int inputPhoneNumber =0;
+        String  inputPhoneNumber = "";
+        int convrtedinputPhoneNumber =0;
         while(run) {
         System.out.println("Podaj numer telefonu ");
         Scanner scanner = new Scanner(System.in);
-         inputPhoneNumber = scanner.nextInt();
+         inputPhoneNumber = scanner.nextLine();
 
-        if ( inputPhoneNumber < 9 ) {
+        if ( inputPhoneNumber.length() < 9 ) {
             System.out.println("Nieprawidlowy numer telefonu - numer jest za krotki");
         } else {
+             convrtedinputPhoneNumber = Integer.parseInt(inputPhoneNumber);
             run  = false;
         }
         }
-        return inputPhoneNumber;
+        return convrtedinputPhoneNumber;
     }
 
     public String  setNewpassword () {
@@ -310,6 +312,8 @@ return customer1;
                     runRegistration = false;
 
                 }
+                System.out.println();
+                launchingPortal();
             }
             case 2 -> {
                 for (int i =0; i < 3; i ++) {
