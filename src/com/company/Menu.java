@@ -60,6 +60,7 @@ public class Menu {
 
                 int accountNr = as.getCustomerDetails(customeNumber).getAccount_no();
 
+
                 bh.showBankHistory(accountNr);
 
                 System.out.println();

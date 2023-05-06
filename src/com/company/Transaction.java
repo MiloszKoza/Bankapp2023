@@ -6,6 +6,79 @@ import java.util.Scanner;
 
 public class Transaction {
 
+    private int number;
+    private String date;
+    private String recipientSenderFirstName;
+    private String recipientSenderLastName;
+    private int accountNumber;
+    private String title;
+    private int amount;
+    private boolean beingRecipient;
+
+    public boolean isBeingRecipient() {
+        return beingRecipient;
+    }
+
+    public void setBeingRecipient(boolean beingRecipient) {
+        this.beingRecipient = beingRecipient;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
+    public String getRecipientSenderFirstName() {
+        return recipientSenderFirstName;
+    }
+
+    public void setRecipientSenderFirstName(String recipientSenderFirstName) {
+        this.recipientSenderFirstName = recipientSenderFirstName;
+    }
+
+    public String getRecipientSenderLastName() {
+        return recipientSenderLastName;
+    }
+
+    public void setRecipientSenderLastName(String recipientSenderLastName) {
+        this.recipientSenderLastName = recipientSenderLastName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     Connection con = null;
 
