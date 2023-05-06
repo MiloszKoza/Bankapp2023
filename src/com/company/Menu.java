@@ -64,14 +64,14 @@ public class Menu {
                 bh.showBankHistory(accountNr);
 
                 System.out.println();
-                System.out.println("Jesli chcesz wrocic do menu - wcisnij x");
-                Scanner scanner1 = new Scanner(System.in);
-                String exit = scanner1.nextLine();
-
-
-                if (exit.equals("x") || exit.equals("X")) {
-                    break;
-                }
+//                System.out.println("Jesli chcesz wrocic do menu - wcisnij x");
+//                Scanner scanner1 = new Scanner(System.in);
+//                String exit = scanner1.nextLine();
+//
+//
+//                if (exit.equals("x") || exit.equals("X")) {
+//                    break;
+//                }
             }
             case 2 -> {
                 System.out.println("Wykonanie przelewu");

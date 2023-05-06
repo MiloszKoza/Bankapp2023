@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class PDF {
 
     public void generateConfirmationPDF (Transaction transaction, int accountNumber, String holderFirstName, String holderLastName){
-        String file = "C:\\Users\\Miłosz\\Documents\\PDFs\\test1.pdf";
+        String file = "C:\\Users\\milos\\Documents\\PDFs\\test1.pdf";
 
         Document document = new Document();
         LocalDate localDate = LocalDate.now();
@@ -22,22 +22,22 @@ public class PDF {
             PdfWriter.getInstance(document,new FileOutputStream(file));
             document.open();
 
-            Paragraph para = new Paragraph("Właściciel: " + holderFirstName + "" + holderLastName );
+            Paragraph para = new Paragraph("Wlaściciel: " + holderFirstName + "  " + holderLastName );
             document.add(para);
             document.add(new Paragraph("Data Wydruku: " + localDate));
             document.add(new Paragraph(""));
-            document.add(new Paragraph("Numer rachunku:" + accountNumber));
-            document.add(new Paragraph("Data operacji:" + transaction.getDate()));
+            document.add(new Paragraph("Numer rachunku: " + accountNumber));
+            document.add(new Paragraph("Data operacji: " + transaction.getDate()));
             if (transaction.isBeingRecipient() == true) {
-                document.add(new Paragraph("Nadawca:" + transaction.getRecipientSenderFirstName() + "" + transaction.getRecipientSenderLastName()));
-                document.add(new Paragraph("Rachunek Nadawcy:" + transaction.getAccountNumber()));
+                document.add(new Paragraph("Nadawca:" + transaction.getRecipientSenderFirstName() + " " + transaction.getRecipientSenderLastName()));
+                document.add(new Paragraph("Rachunek Nadawcy: " + transaction.getAccountNumber()));
             }else{
-                document.add(new Paragraph("Odbiorca:" + transaction.getRecipientSenderFirstName() + "" + transaction.getRecipientSenderLastName()));
-                document.add(new Paragraph("Rachunek odbiorcy:" + transaction.getAccountNumber()));
+                document.add(new Paragraph("Odbiorca: " + transaction.getRecipientSenderFirstName() + " " + transaction.getRecipientSenderLastName()));
+                document.add(new Paragraph("Rachunek odbiorcy: " + transaction.getAccountNumber()));
 
 
             }
-            document.add(new Paragraph("Tytuł: " + transaction.getTitle()));
+            document.add(new Paragraph("Tytul: " + transaction.getTitle()));
             document.add(new Paragraph("Kwota: " + transaction.getAmount()));
 
             document.close();

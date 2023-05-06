@@ -27,12 +27,12 @@ public class BankHistory {
         }
     }
 
-    public static int transactionCounter =1;
-    public void showBankHistory(int accountNumber) {
 
+    public void showBankHistory(int accountNumber) {
+          int transactionCounter =1;
         ArrayList<Transaction> myTransactionsList = new ArrayList<>();
 
-         Transaction transaction = new Transaction();
+
         AccessingPortal as = new AccessingPortal ();
         as.connect();
 
@@ -52,7 +52,9 @@ public class BankHistory {
             while(runMethod) {
 
                 while (rs.next()) {
+                    Transaction transaction = new Transaction();
                     int check = rs.getInt(4);
+
 
 
                     int counter = transactionCounter++;
@@ -100,10 +102,10 @@ public class BankHistory {
                         transaction.setAmount(amount);
                         System.out.println("Tytul: " + title + " Kwota: " + amount);
                         int account = rs.getInt(4);
+                        transaction.setAccountNumber(account);
                         transaction.setBeingRecipient(false);
                         myTransactionsList.add(transaction);
                         System.out.println();
-
 
 
                     }
@@ -118,24 +120,18 @@ public class BankHistory {
                 Scanner scanner1 = new Scanner(System.in);
 
                 String input = scanner1.nextLine();
+                if (input.equals("x") || input.equals("X")) {
+                    runMethod = false;
+                    break;
+
+
+                }
                 int convertedString = Integer.parseInt(input);
 
 
+                if (convertedString <= myTransactionsList.size() ) {
 
-                if (input.equals("x") || input.equals("X")) {
-                    runMethod = false;
-
-                } else if (convertedString <= myTransactionsList.size() ) {
-
-                    Transaction myTransaction = myTransactionsList.get(5);
-
-                    for ( Transaction t : myTransactionsList){
-                        System.out.println(t);
-                    }
-                    System.out.println(myTransaction.getAmount());
-                    System.out.println(myTransaction.getTitle());
-                    System.out.println(myTransaction.getNumber());
-
+                    Transaction myTransaction = myTransactionsList.get(convertedString -1);
 
 
 
