@@ -138,7 +138,7 @@ public class Bankapp2023 {
 
         while (runApp) {
 
-            System.out.println("Podaj numer konta z ktorego wykonac przelew");
+            System.out.println("Podaj numer konta z którego wykonać przelew");
             Scanner scan = new Scanner(System.in);
             inputAccount1 = scan.nextInt();
 
@@ -148,14 +148,14 @@ public class Bankapp2023 {
                 runApp = false;
 
             } else {
-                System.out.println("Nie prawidlowe konto - wprowadz konto ponownie");
+                System.out.println("Nie prawidłowe konto - wprowadź konto ponownie");
                 System.out.println();
             }
         }
 
         while (runApp1) {
 
-            System.out.println("Podaj numer konta na ktory wykonac przelew");
+            System.out.println("Podaj numer konta na który wykonać przelew");
             Scanner scan1 = new Scanner(System.in);
             inputAccount2 = scan1.nextInt();
 
@@ -166,13 +166,13 @@ public class Bankapp2023 {
                 runApp1 = false;
 
             } else {
-                System.out.println("Nie prawidlowe konto - wprowadz konto ponownie");
+                System.out.println("Nie prawidłowe konto - wprowadź konto ponownie");
                 System.out.println();
             }
         }
         while (runApp2) {
 
-            System.out.println("Podaj kwote przelewu");
+            System.out.println("Podaj kwotę przelewu");
             Scanner scan2 = new Scanner(System.in);
             amount = scan2.nextDouble();
 
@@ -180,14 +180,14 @@ public class Bankapp2023 {
 
 
          if (amount <= 0) {
-                System.out.println("Kwota przelewu musi byc wieksza od zera");
+                System.out.println("Kwota przelewu musi być większa od zera");
 
 
 
 
             } else if (update1 < 0) {
-                System.out.println("Nie masz wystarczajacych srodkow na dokonanie przelwu");
-                System.out.println("Podaj kwote ponownie");
+                System.out.println("Nie masz wystarczających środków na dokonanie przelewu");
+                System.out.println("Podaj kwotę ponownie");
                 System.out.println("");
             } else if (update1 > 0)
                 runApp2 = false;
@@ -196,14 +196,14 @@ public class Bankapp2023 {
         }
         String title = " ";
         while(runApp3) {
-        System.out.println("Podaj tytul przelewu");
+        System.out.println("Podaj tytuł przelewu");
 
         Scanner scan = new Scanner(System.in);
           title = scan.nextLine();
 
 
             if (title.isEmpty()) {
-                System.out.println("Tytul przelewu nie moze byc pusty");
+                System.out.println("Tytuł przelewu nie może być pusty");
             } else {
                 runApp3 = false;
             }
@@ -248,8 +248,8 @@ public class Bankapp2023 {
             t1.connect();
             t1.saveTransaction(Transaction.generateRandomString(20), inputAccount1, inputAccount2, amount, title );
             System.out.println("Transaction performed successfully");
-            System.out.println("Wykonano przelew z konta: " + inputAccount1 + " na konto: " + inputAccount2+ " w wysokosci: " + amount);
-            System.out.println("Tytul przelewu: " + title);
+            System.out.println("Wykonano przelew z konta: " + inputAccount1 + " na konto: " + inputAccount2+ " w wysokści: " + amount);
+            System.out.println("Tytuł przelewu: " + title);
             //System.out.println("Numer transakcji: " + Transaction.generateRandomString(20));
 
         } catch(SQLException e){

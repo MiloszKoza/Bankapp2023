@@ -82,7 +82,7 @@ public class BankHistory {
 
                         System.out.println("Nadawca: " + firstName + " " + lastName);
 
-                        System.out.println("Tytul: " + title + " Kwota: " + amount);
+                        System.out.println("Tytuł: " + title + " Kwota: " + amount);
 
                         System.out.println();
 
@@ -100,7 +100,7 @@ public class BankHistory {
                         transaction.setTitle(title);
                         int amount = rs.getInt(1);
                         transaction.setAmount(amount);
-                        System.out.println("Tytul: " + title + " Kwota: " + amount);
+                        System.out.println("Tytuł: " + title + " Kwota: " + amount);
                         int account = rs.getInt(4);
                         transaction.setAccountNumber(account);
                         transaction.setBeingRecipient(false);
@@ -113,10 +113,10 @@ public class BankHistory {
 
                 }
 
-                System.out.println("Jesli chcesz wygenrowac potwierdzenie wybierz odpowiedni numer transakcji z listy wyzej");
+                System.out.println("Jeśli chcesz wygenerować potwierdzenie wybierz odpowiedni numer transakcji z listy wyżej");
 
 
-                System.out.println("Jesli chcesz wrocic do menu - wcisnij x");
+                System.out.println("Jeśli chcesz wrócić do menu - wciśnij x");
                 Scanner scanner1 = new Scanner(System.in);
 
                 String input = scanner1.nextLine();
@@ -137,10 +137,11 @@ public class BankHistory {
 
                     PDF mypdf = new PDF();
                     mypdf.generateConfirmationPDF(myTransaction, accountNumber,"Milosz", "Koza" );
-
-
+                    System.out.println("Potwierdzenie operacji numer:"+input + " wygenerowano pomyślnie");
+                    System.out.println();
                 } else {
-                    System.out.println("Error - nieprawidlowy numer transakcji. Podaj numer ponownie");
+                    System.out.println("Error - nieprawidłowy numer transakcji. Podaj numer ponownie");
+                    System.out.println();
                 }
             }
         } catch (SQLException throwables) {

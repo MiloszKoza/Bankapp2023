@@ -56,7 +56,7 @@ public class AccessingPortal {
         for (int i = 0; i < myList.size(); i++) {
 
             if (inputCustomerNumber == myList.get(i) && setEmail == true) {
-                 System.out.println("Numer klienta: " + inputCustomerNumber + " jest prawidlowy");
+                 System.out.println("Numer klienta: " + inputCustomerNumber + " jest prawidłowy");
 
                 corectCustomerNumber = true;
                 break;
@@ -65,7 +65,7 @@ public class AccessingPortal {
                     corectCustomerNumber = true;
                     break;
             } else if (myList.get(i) != inputCustomerNumber && i == myList.size() - 1 &&  setEmail == true) {
-                System.out.println("Numer klienta: " + inputCustomerNumber + " nie jest prawidlowy - Sprobuj ponownie");
+                System.out.println("Numer klienta: " + inputCustomerNumber + " nie jest prawidłowy - Spróbuj ponownie");
                 corectCustomerNumber = false;
 
                 System.out.println("Podaj numer klienta ponownie");
@@ -146,17 +146,17 @@ return customer1;
         while (runMethod) {
 
 
-            System.out.println("Podaj swoj adres email");
+            System.out.println("Podaj swój adres email");
             Scanner scanner2 = new Scanner(System.in);
              inputEmail = scanner2.nextLine();
 
 
             for (int i = 0; i < listEmails.size(); i++) {
                 if (!inputEmail.contains("@")  && !inputEmail.contains(".")) {
-                    System.out.println("Nie prawidlowy format adresu email");
+                    System.out.println("Nie prawidłowy format adresu email");
                     break;
             } else if (inputEmail.equals(listEmails.get(i))) {
-                    System.out.println("Adres email jest juz wykorzystany - podaj inny adres email");
+                    System.out.println("Adres email jest już wykorzystany - podaj inny adres email");
                     break;
                 } else if (!inputEmail.equals(listEmails.get(i)) && i == listEmails.size() - 1) {
                     runMethod = false;
@@ -175,12 +175,12 @@ return customer1;
         String  inputPhoneNumber = "";
         int convrtedinputPhoneNumber =0;
         while(run) {
-        System.out.println("Podaj numer telefonu ");
+        System.out.println("Podaj numer telefonu");
         Scanner scanner = new Scanner(System.in);
          inputPhoneNumber = scanner.nextLine();
 
         if ( inputPhoneNumber.length() < 9 ) {
-            System.out.println("Nieprawidlowy numer telefonu - numer jest za krotki");
+            System.out.println("Nieprawidłowy numer telefonu - numer jest za krótki");
         } else {
              convrtedinputPhoneNumber = Integer.parseInt(inputPhoneNumber);
             run  = false;
@@ -194,7 +194,7 @@ return customer1;
         boolean run = true;
         String inputNewPassword ="";
         while (run) {
-            System.out.println("Wprowadz nowe haslo do logowania");
+            System.out.println("Wprowadź nowe hasło do logowania");
 
             Scanner scanner = new Scanner(System.in);
              inputNewPassword = scanner.nextLine();
@@ -235,25 +235,25 @@ return customer1;
             }
 
             if (have12characters && hasSpecialcharacter && hasDigit && hasUppercaseCharacter) {
-                System.out.println("Haslo poprawne");
+                System.out.println("Hasło poprawne");
 
 
             } else {
-                System.out.println("Haslo nie spelnia wymagan - sprobuj podac inne haslo");
+                System.out.println("Hasło nie spełnia wymagań - spróbuj podać inne hasło");
                 setNewpassword();
             }
 
 
-            System.out.println("Powtorz nowe haslo");
+            System.out.println("Powtórz nowe hasło");
             Scanner scanner1 = new Scanner(System.in);
             String inputConfirmedPassword = scanner1.nextLine();
 
             if( inputConfirmedPassword.equals(inputNewPassword)){
-                System.out.println("Nowe haslo zostalo poprawnie ustawione");
+                System.out.println("Nowe hasło zostało poprawnie ustawione");
                 run = false;
                 break;
             } else {
-                System.out.println("Hasla nie sa takie same - sprobuj ponownie");
+                System.out.println("Hasła nie sa takie same - spróbuj ponownie");
 
             }
         }
@@ -272,7 +272,7 @@ return customer1;
 
              preparedStatement.executeUpdate();
 
-            System.out.println("Rejestracja przebiegla pomyslnie");
+            System.out.println("Rejestracja przebiegła pomyślnie");
 
 
         } catch (SQLException throwables) {
@@ -283,7 +283,7 @@ return customer1;
     }
 
     public void launchingPortal ( ) {
-        System.out.println("Witaj w portalu bankowosci elektronicznej");
+        System.out.println("Witaj w portalu bankowości elektronicznej");
         System.out.println("W celu rejestracji wybierz 1, w przypadku logowania do serwisu 2");
 
         Scanner scanner = new Scanner(System.in);
@@ -297,7 +297,7 @@ return customer1;
                 boolean runRegistration = true;
                 while (runRegistration) {
 
-                    System.out.println("W celu rejestracji podaj swoj numer klienta");
+                    System.out.println("W celu rejestracji podaj swój numer klienta");
 
                     Scanner scanner1 = new Scanner(System.in);
                     int inputCustomerNumber = scanner1.nextInt();
@@ -327,23 +327,23 @@ return customer1;
 
                    String checkedPassword =  getCustomerDetails(inputCustomerNumber).getPassword();
 
-                    System.out.println("Podaj haslo do logowania");
+                    System.out.println("Podaj hasło do logowania");
 
                     Scanner scanner2 = new Scanner(System.in);
                     String password = scanner2.nextLine();
 
              if (password.equals(checkedPassword ) && checkAccount(inputCustomerNumber) ) {
-                 System.out.println("Logowanie przebieglo  poprawnie");
+                 System.out.println("Logowanie przebiegło  poprawnie");
                  System.out.println();
                  Menu menu = new Menu();
                  menu.accessingMenu(inputCustomerNumber);
                  break;
 
              }  else  if ( i == 2) {
-                 System.out.println("Numer klienta albo haslo nieprawidołowe");
-                     System.out.println(" 3 proby nieprawdilowego logowania - konto zablokowane ");
+                 System.out.println("Numer klienta albo hasło nieprawidłowe");
+                     System.out.println(" 3 próby nieprawdiłowego logowania - konto zablokowane");
              } else   {
-                 System.out.println("Numer klienta albo haslo nieprawidolowe - sprobuj ponownie");
+                 System.out.println("Numer klienta albo hasło nieprawidłowe - spróbuj ponownie");
                  System.out.println();
              }
 

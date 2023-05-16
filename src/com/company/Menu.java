@@ -11,10 +11,10 @@ public class Menu {
             System.out.println("Numer Rachunku: " +     customer.getCustomerNumber());
             System.out.println("Numer Konta: " +     customer.getAccount_no());
             System.out.println("Stan Konta: " + customer.getBalance());
-            System.out.println("Imie Klienta: " +     customer.getFirstName());
+            System.out.println("Imię Klienta: " +     customer.getFirstName());
             System.out.println("Nazwisko Klienta: " +     customer.getLastName());
-            System.out.println("Haslo do logowania: " +     customer.getPassword());
-            System.out.println("Email:" +     customer.getEmail());
+            System.out.println("Hasło Do Logowania: " +     customer.getPassword());
+            System.out.println("Email: " +     customer.getEmail());
             System.out.println("Numer Telefonu: " +     customer.getPhoneNumber());
 
 
@@ -35,10 +35,10 @@ public class Menu {
 
             while(shouldContinue) {
                 System.out.println();
-        System.out.println("Wybierz opcje:");
+        System.out.println("Wybierz opcję:");
         System.out.println("1. Sprawdzenie historii rachunku");
         System.out.println("2. Wykonanie przelewu");
-        System.out.println("3. Dodanie zdefiniownaego odbiorcy");
+        System.out.println("3. Dodanie zdefiniowanego odbiorcy");
         System.out.println("4. Informacje o prowadzonym rachunku");
         System.out.println("5. Wylogowywanie");
 
@@ -83,7 +83,7 @@ public class Menu {
 
                 transaction.performTransactionApp(accountNr);
                 System.out.println();
-                System.out.println("Jesli chcesz wrocic do menu - wcisnij x");
+                System.out.println("Jeśli chcesz wrócić do menu - wciśnij x");
                 Scanner scanner1 = new Scanner(System.in);
                 String exit = scanner1.nextLine();
 
@@ -96,7 +96,7 @@ public class Menu {
             case 3 -> { System.out.println("Dodanie zdefiniownaego odbiorcy");
 
                 System.out.println();
-                System.out.println("Jesli chcesz wrocic do menu - wcisnij x");
+                System.out.println("Jeśli chcesz wrócić do menu - wciśnij x");
                 Scanner scanner1 = new Scanner(System.in);
                 String exit = scanner1.nextLine();
 
@@ -112,7 +112,7 @@ public class Menu {
                showCustomerDetails(as.getCustomerDetails(customeNumber));
 
                 System.out.println();
-                System.out.println("Jesli chcesz wrocic do menu - wcisnij x");
+                System.out.println("Jeśli chcesz wrócić do menu - wciśnij x");
                 Scanner scanner1 = new Scanner(System.in);
                 String exit = scanner1.nextLine();
 
@@ -130,9 +130,9 @@ public class Menu {
                 shouldContinue = false;
                 System.out.println("Wylogowywanie...");
 
-                System.out.println("Wylogowywanie przebieglo pomyslnie");}
+                System.out.println("Wylogowywanie przebiegło pomyślnie");}
 
-            default -> System.out.println("Niewybrano żadnej opcji - wybierz jedna z powyzszych opcji");
+            default -> System.out.println("Niewybrano żadnej opcji - wybierz jedną z powyższych opcji");
         }
 
 

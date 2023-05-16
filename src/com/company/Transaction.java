@@ -353,7 +353,7 @@ public void performTransaction () {
 
             currentBalanceAccount2 = getBalance(inputAccount2);
 
-            if (currentBalanceAccount2 > 0) {
+            if (currentBalanceAccount2 > 0 && accountNumber !=inputAccount2) {
                 runApp1 = false;
 
             } else {
