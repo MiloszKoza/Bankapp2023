@@ -1,10 +1,8 @@
 package com.company;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -18,7 +16,10 @@ import java.time.LocalDateTime;
 
 public class PDF {
 
+
+
     public void generateConfirmationPDF (Transaction transaction, int accountNumber, String holderFirstName, String holderLastName){
+
 
          String AlphanumericString = "ABCDEFGHIJKLMNOPQRSTVWXYZ" + "0123456789";
 
@@ -41,10 +42,11 @@ public class PDF {
             document.open();
             BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
             Font font = new Font(bf,12);
+            Font font1 = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.NORMAL, new BaseColor(50,50,50));
 
             Image image1 = Image.getInstance("C:\\Users\\milos\\Downloads\\290147_bank_cash_finance_money_payment_icon (1).png");
             document.add(image1);
-
+            document.add(new Paragraph("--------------------------------------------------------------", font));
             Paragraph para = new Paragraph("Właściciel: " + holderFirstName + " " + holderLastName, font );
             document.add(para);
             document.add(new Paragraph("Data wydruku: " + localDate, font));

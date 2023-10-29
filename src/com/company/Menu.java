@@ -61,7 +61,7 @@ public class Menu {
                 int accountNr = as.getCustomerDetails(customeNumber).getAccount_no();
 
 
-                bh.showBankHistory(accountNr);
+                bh.showBankHistory(accountNr,customeNumber);
 
                 System.out.println();
 //                System.out.println("Jesli chcesz wrocic do menu - wcisnij x");

@@ -346,7 +346,7 @@ public void performTransaction () {
         while (runApp1) {
 
             System.out.println();
-            System.out.println("Podaj numer konta na ktory wykonac przelew");
+            System.out.println("Podaj numer konta na który wykonać przelew");
             Scanner scan1 = new Scanner(System.in);
             inputAccount2 = scan1.nextInt();
 
@@ -357,13 +357,13 @@ public void performTransaction () {
                 runApp1 = false;
 
             } else {
-                System.out.println("Nie prawidlowe konto - wprowadz konto ponownie");
+                System.out.println("Nie prawidłowe konto - wprowadź konto ponownie");
                 System.out.println();
             }
         }
         while (runApp2) {
 
-            System.out.println("Podaj kwote przelewu");
+            System.out.println("Podaj kwotę przelewu");
             Scanner scan2 = new Scanner(System.in);
             amount = scan2.nextDouble();
 
@@ -371,14 +371,14 @@ public void performTransaction () {
 
 
             if (amount <= 0) {
-                System.out.println("Kwota przelewu musi byc wieksza od zera");
+                System.out.println("Kwota przelewu musi byc większa od zera");
 
 
 
 
             } else if (update1 < 0) {
-                System.out.println("Nie masz wystarczajacych srodkow na dokonanie przelwu");
-                System.out.println("Podaj kwote ponownie");
+                System.out.println("Nie masz wystarczających środków na dokonanie przelwu");
+                System.out.println("Podaj kwotę ponownie");
                 System.out.println("");
             } else if (update1 > 0)
                 runApp2 = false;
@@ -387,14 +387,14 @@ public void performTransaction () {
         }
         String title = " ";
         while(runApp3) {
-            System.out.println("Podaj tytul przelewu");
+            System.out.println("Podaj tytuł przelewu");
 
             Scanner scan = new Scanner(System.in);
             title = scan.nextLine();
 
 
             if (title.isEmpty()) {
-                System.out.println("Tytul przelewu nie moze byc pusty");
+                System.out.println("Tytuł przelewu nie może być pusty");
             } else {
                 runApp3 = false;
             }
@@ -438,16 +438,16 @@ public void performTransaction () {
             con.commit();
             connect();
             saveTransaction(Transaction.generateRandomString(20), accountNumber, inputAccount2, amount, title );
-            System.out.println("Transaction performed successfully");
-            System.out.println("Wykonano przelew z konta: " + accountNumber + " na konto: " + inputAccount2+ " w wysokosci: " + amount);
-            System.out.println("Tytul przelewu: " + title);
+            System.out.println("Transakcja przebiegła pomyślnie");
+            System.out.println("Wykonano przelew z konta: " + accountNumber + " na konto: " + inputAccount2+ " w wysokości: " + amount);
+            System.out.println("Tytuł przelewu: " + title);
             //System.out.println("Numer transakcji: " + Transaction.generateRandomString(20));
 
         } catch(SQLException e){
             System.out.println(e);
 
             if(con!= null){
-                System.out.println("Transaction is being rollback");
+                System.out.println("Transakcja jest anulowana");
                 try {
                     con.rollback();
                 } catch (SQLException throwables) {

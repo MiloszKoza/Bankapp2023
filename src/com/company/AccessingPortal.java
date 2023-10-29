@@ -2,6 +2,7 @@ package com.company;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AccessingPortal {
@@ -321,8 +322,8 @@ return customer1;
                 System.out.println("W celu logowania do portalu podaj numer klienta");
 
             Scanner scanner1 = new Scanner(System.in);
-            int inputCustomerNumber = scanner1.nextInt();
-
+             try {
+                 int inputCustomerNumber = scanner1.nextInt();
 
 
                    String checkedPassword =  getCustomerDetails(inputCustomerNumber).getPassword();
@@ -347,6 +348,10 @@ return customer1;
                  System.out.println();
              }
 
+             }catch (InputMismatchException ex) {
+                 System.out.println("Nieprawidłowy format numeru klienta");
+                 System.out.println();
+             }
 
 
         }

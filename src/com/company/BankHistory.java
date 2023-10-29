@@ -28,13 +28,19 @@ public class BankHistory {
     }
 
 
-    public void showBankHistory(int accountNumber) {
+    public void showBankHistory(int accountNumber, int customeNumber) {
           int transactionCounter =1;
         ArrayList<Transaction> myTransactionsList = new ArrayList<>();
 
 
         AccessingPortal as = new AccessingPortal ();
         as.connect();
+
+        String  nameOfHoldr =  as.getCustomerDetails(customeNumber).getFirstName();
+        String  lastNameOfHolder = as.getCustomerDetails(customeNumber).getLastName();
+
+
+
 
 
         String query = "SELECT mbanktransactions.kwota,mbanktransactions.tytuł,mbanktransactions.Date, mbanktransactions.na_Rachunek, mbanktransactions.z_Rachunku, mbankcustomers.firstName,mbankcustomers.lastName, a1.firstName, a1.lastName  FROM mbanktransactions\n" +
@@ -48,13 +54,15 @@ public class BankHistory {
 
             ResultSet rs = st.executeQuery(query);
 
+            String firstName1;
+            String lastName1;
+
             boolean runMethod=true;
             while(runMethod) {
 
                 while (rs.next()) {
                     Transaction transaction = new Transaction();
                     int check = rs.getInt(4);
-
 
 
                     int counter = transactionCounter++;
@@ -65,10 +73,10 @@ public class BankHistory {
                         transaction.setNumber(counter);
                         String date = rs.getString(3);
                         transaction.setDate(date);
-                        String firstName = rs.getString(6);
-                        transaction.setRecipientSenderFirstName(firstName);
-                        String lastName = rs.getString(7);
-                        transaction.setRecipientSenderLastName(lastName);
+                        firstName1 = rs.getString(6);
+                        transaction.setRecipientSenderFirstName(firstName1);
+                        lastName1 = rs.getString(7);
+                        transaction.setRecipientSenderLastName(lastName1);
                         String title = rs.getString(2);
                         transaction.setTitle(title);
                         int amount = rs.getInt(1);
@@ -80,7 +88,7 @@ public class BankHistory {
 
                         System.out.println("Data: " + date);
 
-                        System.out.println("Nadawca: " + firstName + " " + lastName);
+                        System.out.println("Nadawca: " + firstName1 + " " + lastName1);
 
                         System.out.println("Tytuł: " + title + " Kwota: " + amount);
 
@@ -113,42 +121,78 @@ public class BankHistory {
 
                 }
 
-                System.out.println("Jeśli chcesz wygenerować potwierdzenie wybierz odpowiedni numer transakcji z listy wyżej");
+                while(runMethod) {
+
+                System.out.println("Dostępne są operacje:");
+                System.out.println("1. Generowanie potwierdzenia transakcji");
+                System.out.println("2. Wyszukiwanie określonej transakcji");
+                System.out.println("3. Powrót do menu");
+                System.out.println("Wybierz operację od 1 do 2 aby kontynuować albo wybierz  3 aby wrócić do menu");
+
+                Scanner scannerSearchGenerate = new Scanner(System.in);
+                int inputSG = scannerSearchGenerate.nextInt();
+                runMethod =true;
+
+                switch (inputSG) {
+
+                    case 1 -> {
 
 
-                System.out.println("Jeśli chcesz wrócić do menu - wciśnij x");
-                Scanner scanner1 = new Scanner(System.in);
+                        System.out.println("Jeśli chcesz wygenerować potwierdzenie wybierz odpowiedni numer transakcji z listy wyżej");
 
-                String input = scanner1.nextLine();
-                if (input.equals("x") || input.equals("X")) {
-                    runMethod = false;
-                    break;
+
+                        System.out.println("Jeśli chcesz wrócić do menu - wciśnij x");
+                        Scanner scanner1 = new Scanner(System.in);
+
+                        String input = scanner1.nextLine();
+                        if (input.equals("x") || input.equals("X")) {
+                            runMethod = false;
+                            break;
+
+
+                        }
+                        int convertedString = Integer.parseInt(input);
+
+
+                        if (convertedString <= myTransactionsList.size()) {
+
+                            Transaction myTransaction = myTransactionsList.get(convertedString - 1);
+
+
+                            PDF mypdf = new PDF();
+                            mypdf.generateConfirmationPDF(myTransaction, accountNumber, nameOfHoldr, lastNameOfHolder);
+                            System.out.println("Potwierdzenie operacji numer:" + input + " wygenerowano pomyślnie");
+                            System.out.println();
+                        } else {
+                            System.out.println("Error - nieprawidłowy numer transakcji. Podaj numer ponownie");
+                            System.out.println();
+                        }
 
 
                 }
-                int convertedString = Integer.parseInt(input);
+                case 2 -> {
+                         SearchHistory.run = true;
+                    SearchHistory.searchTransactionsBy(accountNumber);
 
 
-                if (convertedString <= myTransactionsList.size() ) {
+                }
+                case 3 -> {
+                        runMethod = false;
+                        break;
 
-                    Transaction myTransaction = myTransactionsList.get(convertedString -1);
-
-
-
-                    PDF mypdf = new PDF();
-                    mypdf.generateConfirmationPDF(myTransaction, accountNumber,"Milosz", "Koza" );
-                    System.out.println("Potwierdzenie operacji numer:"+input + " wygenerowano pomyślnie");
-                    System.out.println();
-                } else {
-                    System.out.println("Error - nieprawidłowy numer transakcji. Podaj numer ponownie");
-                    System.out.println();
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
 
 
-    }
+            }
 
-}
+
+
+
+
+        } } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }}}
+
+
+
